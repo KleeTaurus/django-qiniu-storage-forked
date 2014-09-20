@@ -148,8 +148,8 @@ class QiniuStaticStorage(QiniuStorage):
 
 class QiniuFile(File):
     def __init__(self, name, storage, mode):
-        self._name = name[len(self._storage.location):].lstrip('/')
         self._storage = storage
+        self._name = name[len(self._storage.location):].lstrip('/')
         self._mode = mode
         self.file = StringIO()
         self._is_dirty = False
@@ -165,7 +165,7 @@ class QiniuFile(File):
         if not self._is_read:
             self.file = StringIO(self._storage._read(self._name))
             self._is_read = True
-        return self.file.read(num_bytes)
+        return self.file.read()
 
     def write(self, content):
         if 'w' not in self._mode:
